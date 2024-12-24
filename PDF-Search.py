@@ -8,16 +8,16 @@ from PyPDF2 import PdfReader
 
 def welcome():
 
-    print(r'''     ____  ____  ___________                      __
-    / __ \/ __ \/ ____/ ___/___  ____ ___________/ /_
+    print(r'''     ____  ____  ___________                      __  
+    / __ \/ __ \/ ____/ ___/___  ____ ___________/ /_ 
    / /_/ / / / / /_   \__ \/ _ \/ __ `/ ___/ ___/ __ \
   / ____/ /_/ / __/  ___/ /  __/ /_/ / /  / /__/ / / /
- /_/   /_____/_/    /____/\___/\__,_/_/   \___/_/ /_/
+ /_/   /_____/_/    /____/\___/\__,_/_/   \___/_/ /_/ 
                                                      ''')
 
 def parse_args():
     parser = argparse.ArgumentParser(
-        prog='PDF-Search.py',
+        prog='PDF-Search.py', 
         description='A simple yet effective tool that searches .pdf files for a keyword & returns the filename'
     )
 
@@ -33,10 +33,10 @@ def parse_args():
 
     if len(arg_errors) > 0:
         for error in arg_errors:
-            print(f"[-] {error}\n")
+            print(f" [-] {error}\n")
         parser.print_help()
         sys.exit(1)
-
+    
     for attr in vars(args):
         value = getattr(args, attr)
         if value is not None and not int:
@@ -64,7 +64,7 @@ def running_animation():
     animation = "|/-\\"
     i = 0
     while True:
-        sys.stdout.write( "\r" + f"["  + animation[i % len(animation)] + "] ")
+        sys.stdout.write( "\r" + f" ["  + animation[i % len(animation)] + "] ")
         sys.stdout.flush()
         i += 1
         time.sleep(1)
@@ -78,7 +78,7 @@ def extract_text_from_pdf(file_path):
             text += page.extract_text() or ""
         return text
     except Exception as e:
-        print(f"[!] Error reading {file_path}: {e}")
+        print(f" [!] Error reading {file_path}: {e}")
         return ""
 
 def search_keyword_in_pdfs(dir, keyword):
@@ -95,10 +95,9 @@ def search_keyword_in_pdfs(dir, keyword):
     return results
 
 if __name__ == "__main__":
-
+   
     welcome()
     args = parse_args()
-
 
     if not os.path.exists(args.dir_path):
         print("[!] The specified directory does not exist.")
@@ -109,8 +108,8 @@ if __name__ == "__main__":
         matches = search_keyword_in_pdfs(args.dir_path, args.key_word)
 
         if matches:
-            print(f'\n\n[+] Found {len(matches)} matches for "{args.key_word}":\n')
+            print(f'\n [+] Found {len(matches)} matches for "{args.key_word}":\n')
             for match in matches:
-                print(f"\n[+] File: {match[0]}\n[*] Snippet:\n\n {match[1]}")
+                print(f"\n [+] File: {match[0]}\n [*] Snippet:\n\n {match[1]}")
         else:
-            print("\n[-] No matches found.")
+            print("\n [-] No matches found.")
